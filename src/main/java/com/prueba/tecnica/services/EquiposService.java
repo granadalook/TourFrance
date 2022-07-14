@@ -27,7 +27,7 @@ public class EquiposService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<Equipos> obtenerPorId(String id) {
+    public Optional<Equipos> obtenerPorId(Long id) {
         return equiposRepository.findById(id);
     }
 
@@ -36,12 +36,9 @@ public class EquiposService {
         equipos.setId(id);
         return equiposRepository.save(equipos);
     }
-    @Transactional(readOnly = true)
-    public List<Equipos> obtenerPorNombre(String nombre) {
-        return  equiposRepository.findByNombre(nombre);
-    }
+
     @Transactional
-    public boolean eliminarEquipo(String id) {
+    public boolean eliminarEquipo(Long id) {
         try {
             equiposRepository.deleteById(id);
             return true;

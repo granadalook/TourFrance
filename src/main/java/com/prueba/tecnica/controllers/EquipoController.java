@@ -34,7 +34,7 @@ public class EquipoController {
         return new ResponseEntity<>(response, httpStatus);
     }
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Response> obtenerEquipoPorId(@PathVariable(value = "id") String id) {
+    public ResponseEntity<Response> obtenerEquipoPorId(@PathVariable(value = "id") Long id) {
         response.restart();
         try {
             response.data = equiposService.obtenerPorId(id);
@@ -73,19 +73,9 @@ public class EquipoController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
-    @GetMapping("/nombre")
-    public ResponseEntity<Response> obtenerEquipoPorNombre(@RequestParam(value = "nombre") String nombre) {
-        response.restart();
-        try {
-            response.data = equiposService.obtenerPorNombre(nombre);
-        } catch (Exception exception) {
-            getErrorMessageInternal(exception);
-        }
-        return new ResponseEntity<>(response, httpStatus);
-    }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Response> eliminarPorId(@PathVariable(value = "id") String id) {
+    public ResponseEntity<Response> eliminarPorId(@PathVariable(value = "id") Long id) {
         response.restart();
         try {
             response.data = equiposService.eliminarEquipo(id);

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface EquiposRepository extends CrudRepository<Equipos, String> {
+public interface EquiposRepository extends CrudRepository<Equipos, Long> {
 
-    public abstract List<Equipos> findByNombre(String nombre);
+
 
 }
