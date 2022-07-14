@@ -1,5 +1,6 @@
 package com.prueba.tecnica.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
@@ -16,11 +17,23 @@ public class Equipos {
     private String nombre;
     private String codigo;
     private String pais;
-
+    @OneToMany(
+            mappedBy = "equipos",
+            targetEntity = Ciclistas.class,
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.REMOVE
+    )
+    @JsonManagedReference
+    private List<Ciclistas> ciclistas;
 
     public Equipos() {
     }
-
+    public List<Ciclistas> getCiclistas() {
+        return ciclistas;
+    }
+    public void setCiclistas(List<Ciclistas> ciclistas) {
+        this.ciclistas = ciclistas;
+    }
 
     public Long getId() {
         return id;

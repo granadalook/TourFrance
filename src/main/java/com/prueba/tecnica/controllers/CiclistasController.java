@@ -37,7 +37,7 @@ public class CiclistasController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Response> getCiclistaPorId(@PathVariable(value = "id") String id) {
+    public ResponseEntity<Response> getCiclistaPorId(@PathVariable(value = "id") Long id) {
         response.restart();
         try {
             response.data = ciclistasService.findById(id);
@@ -48,17 +48,7 @@ public class CiclistasController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
-//    @GetMapping("/nombre")
-//    public ResponseEntity<Response> getCiclistaPorNombre(@RequestParam(value = "nombre") String nombre) {
-//        response.restart();
-//        try {
-//            response.data = ciclistasService.findByNombre(nombre);
-//            httpStatus = HttpStatus.OK;
-//        } catch (Exception exception) {
-//            getErrorMessageInternal(exception);
-//        }
-//        return new ResponseEntity<>(response, httpStatus);
-//    }
+
 
     @PostMapping()
     public ResponseEntity<Response> saveCiclista(@RequestBody Ciclistas ciclistas) {
@@ -90,7 +80,7 @@ public class CiclistasController {
         return new ResponseEntity<>(response, httpStatus);
     }
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Response> deleteCiclista(@PathVariable(value = "id") String id) {
+    public ResponseEntity<Response> deleteCiclista(@PathVariable(value = "id") Long id) {
         response.restart();
         try {
             response.data = ciclistasService.deleteUserRol(id);

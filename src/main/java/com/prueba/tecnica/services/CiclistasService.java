@@ -24,13 +24,10 @@ public class CiclistasService {
         return ciclistasRepository.save(ciclistas);
     }
 
-//    @Transactional(readOnly = true)
-//    public List<Ciclistas> findByNombre(String nombre) {
-//        return ciclistasRepository.findByName(nombre);
-//    }
+
 
     @Transactional(readOnly = true)
-    public Optional<Ciclistas> findById(String id) {
+    public Optional<Ciclistas> findById(Long id) {
         return ciclistasRepository.findById(id);
     }
 
@@ -40,7 +37,7 @@ public class CiclistasService {
         return ciclistasRepository.save(ciclistas);
     }
     @Transactional
-    public Boolean deleteUserRol(String id) {
+    public Boolean deleteUserRol(Long id) {
         try {
             ciclistasRepository.deleteById(id);
             return true;

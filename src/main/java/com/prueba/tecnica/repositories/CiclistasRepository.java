@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CiclistasRepository extends CrudRepository<Ciclistas, String> {
-   // public abstract List<Ciclistas> findByName(String nombre);
+public interface CiclistasRepository extends CrudRepository<Ciclistas, Long> {
+
 }

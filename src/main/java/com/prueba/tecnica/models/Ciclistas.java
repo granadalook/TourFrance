@@ -1,5 +1,6 @@
 package com.prueba.tecnica.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
@@ -10,13 +11,29 @@ import javax.persistence.*;
 public class Ciclistas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
+   @Column(unique = true, nullable = false)
     private Long id;
     private String nombre;
     private String numero;
     private String pais;
+    @ManyToOne(
+            targetEntity = Equipos.class,
+            fetch = FetchType.LAZY,
+            optional = false
+    )
+    @JoinColumn(name = "Id_equipo")
+    @JsonBackReference
 
+    private Equipos equipos;
     public Ciclistas() {
+    }
+
+    public Equipos getEquipos() {
+        return equipos;
+    }
+
+    public void setEquipos(Equipos equipos) {
+        this.equipos = equipos;
     }
 
     public Long getId() {
