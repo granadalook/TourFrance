@@ -1,11 +1,8 @@
 package com.prueba.tecnica.models;
-
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.prueba.tecnica.utils.Serializer;
+import com.prueba.tecnica.utils.SerializerEquipos;
 import lombok.AllArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.util.List;
 
@@ -20,27 +17,14 @@ public class Pais {
     private Long id;
     private String nombre;
     private String Siglas;
-    //@JsonManagedReference
-    @OneToMany(
-            mappedBy = "paisCiclistas",
-            targetEntity = Ciclistas.class,
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.REMOVE
-    )
-    @JsonIgnore
-    @Fetch(value = FetchMode.SUBSELECT)
+
+    @OneToMany(mappedBy = "paisCiclistas")
+    @JsonSerialize(using = Serializer.class)
     private List<Ciclistas> ciclistas;
 
 
-    //@JsonManagedReference
-    @OneToMany(
-            mappedBy = "paisEquipos",
-            targetEntity = Equipos.class,
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.REMOVE
-    )
-    @JsonIgnore
-  @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "paisEquipos")
+    @JsonSerialize(using = SerializerEquipos.class)
     private List<Equipos> equipos;
 
     public Pais() {

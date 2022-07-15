@@ -1,9 +1,10 @@
 package com.prueba.tecnica.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.prueba.tecnica.utils.Serializer;
 import lombok.AllArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,23 +19,15 @@ public class Equipos {
     private Long id;
     private String nombre;
     private String codigo;
-  //@JsonBackReference
-    @ManyToOne(
-//            targetEntity = Pais.class,
-//            fetch = FetchType.LAZY,
-//            optional = false
-    )
+
+    @ManyToOne()
     @JoinColumn(name = "Id_paisEquipos")
     private Pais paisEquipos;
 
-    // @JsonManagedReference
-    @OneToMany(
-            mappedBy = "equipos",
-            targetEntity = Ciclistas.class,
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.REMOVE
-    )
-    @JsonIgnore
+    @OneToMany(mappedBy = "equipos")
+    @JsonSerialize(using = Serializer.class)
+
+
     private List<Ciclistas> ciclistas;
 
     public Equipos() {
@@ -51,6 +44,7 @@ public class Equipos {
     public List<Ciclistas> getCiclistas() {
         return ciclistas;
     }
+
     public void setCiclistas(List<Ciclistas> ciclistas) {
         this.ciclistas = ciclistas;
     }
