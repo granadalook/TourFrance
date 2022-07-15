@@ -1,6 +1,7 @@
 package com.prueba.tecnica.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 
@@ -17,11 +18,11 @@ public class Equipos {
     private Long id;
     private String nombre;
     private String codigo;
-  // @JsonBackReference
+  //@JsonBackReference
     @ManyToOne(
-            targetEntity = Pais.class,
-            fetch = FetchType.LAZY,
-            optional = false
+//            targetEntity = Pais.class,
+//            fetch = FetchType.LAZY,
+//            optional = false
     )
     @JoinColumn(name = "Id_paisEquipos")
     private Pais paisEquipos;
@@ -33,6 +34,7 @@ public class Equipos {
             fetch = FetchType.EAGER,
             cascade = CascadeType.REMOVE
     )
+    @JsonIgnore
     private List<Ciclistas> ciclistas;
 
     public Equipos() {

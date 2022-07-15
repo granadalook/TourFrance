@@ -1,12 +1,11 @@
 package com.prueba.tecnica.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -28,7 +27,8 @@ public class Pais {
             fetch = FetchType.EAGER,
             cascade = CascadeType.REMOVE
     )
-  //  @Fetch(value = FetchMode.SUBSELECT)
+    @JsonIgnore
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Ciclistas> ciclistas;
 
 
@@ -39,8 +39,8 @@ public class Pais {
             fetch = FetchType.EAGER,
             cascade = CascadeType.REMOVE
     )
-
-  // @Fetch(value = FetchMode.SUBSELECT)
+    @JsonIgnore
+  @Fetch(value = FetchMode.SUBSELECT)
     private List<Equipos> equipos;
 
     public Pais() {

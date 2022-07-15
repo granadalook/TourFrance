@@ -18,19 +18,19 @@ public class Ciclistas {
     private String numero;
 
 
-    // @JsonBackReference
+   // @JsonBackReference
     @ManyToOne(
-            targetEntity = Pais.class,
-            fetch = FetchType.LAZY,
-            optional = false
+//            targetEntity = Pais.class,
+//            fetch = FetchType.LAZY,
+//            optional = false
     )
     @JoinColumn(name = "Id_paisCiclistas")
     private Pais paisCiclistas;
-    // @JsonBackReference
+     //@JsonBackReference
     @ManyToOne(
-            targetEntity = Equipos.class,
-            fetch = FetchType.LAZY,
-            optional = false
+//            targetEntity = Pais.class,
+//            fetch = FetchType.LAZY,
+//            optional = false
     )
     @JoinColumn(name = "Id_equipo")
     private Equipos equipos;
