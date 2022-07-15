@@ -14,18 +14,35 @@ public class Ciclistas {
    @Column(unique = true, nullable = false)
     private Long id;
     private String nombre;
+
     private String numero;
-    private String pais;
+
+
+    // @JsonBackReference
+    @ManyToOne(
+            targetEntity = Pais.class,
+            fetch = FetchType.LAZY,
+            optional = false
+    )
+    @JoinColumn(name = "Id_paisCiclistas")
+    private Pais paisCiclistas;
+    // @JsonBackReference
     @ManyToOne(
             targetEntity = Equipos.class,
             fetch = FetchType.LAZY,
             optional = false
     )
     @JoinColumn(name = "Id_equipo")
-    @JsonBackReference
-
     private Equipos equipos;
     public Ciclistas() {
+    }
+
+    public Pais getPaisCiclistas() {
+        return paisCiclistas;
+    }
+
+    public void setPaisCiclistas(Pais paisCiclistas) {
+        this.paisCiclistas = paisCiclistas;
     }
 
     public Equipos getEquipos() {
@@ -60,11 +77,5 @@ public class Ciclistas {
         this.numero = numero;
     }
 
-    public String getPais() {
-        return pais;
-    }
 
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
 }

@@ -1,6 +1,6 @@
 package com.prueba.tecnica.controllers;
-import com.prueba.tecnica.models.Equipos;
-import com.prueba.tecnica.services.EquiposService;
+import com.prueba.tecnica.models.Pais;
+import com.prueba.tecnica.services.PaisService;
 import com.prueba.tecnica.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -9,22 +9,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
-
 @CrossOrigin
 @RestController
-@RequestMapping("/equipos")
-public class EquipoController {
+@RequestMapping("/paises")
+public class PaisController {
     @Autowired
-    EquiposService equiposService;
+    PaisService paisService;
     private final Response response = new Response();
 
     private HttpStatus httpStatus = HttpStatus.OK;
 
     @GetMapping()
-    public ResponseEntity<Response> obtenerEquipos() {
+    public ResponseEntity<Response> obtenerPais() {
         response.restart();
         try {
-            response.data = equiposService.obtenerEquipos();
+            response.data = paisService.obtenerPaises();
             httpStatus = HttpStatus.OK;
         } catch (Exception exception) {
             getErrorMessageInternal(exception);
@@ -32,10 +31,10 @@ public class EquipoController {
         return new ResponseEntity<>(response, httpStatus);
     }
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Response> obtenerEquipoPorId(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Response> obtenerPaisPorId(@PathVariable(value = "id") Long id) {
         response.restart();
         try {
-            response.data = equiposService.obtenerPorId(id);
+            response.data = paisService.obtenerPorId(id);
             httpStatus = HttpStatus.OK;
         } catch (Exception exception) {
             getErrorMessageInternal(exception);
@@ -43,10 +42,10 @@ public class EquipoController {
         return new ResponseEntity<>(response, httpStatus);
     }
     @PostMapping()
-    public ResponseEntity<Response> guardarEquipo(@RequestBody Equipos equipos) {
+    public ResponseEntity<Response> guardarPais(@RequestBody Pais pais) {
         response.restart();
         try {
-            response.data = equiposService.guardarEquipo(equipos);
+            response.data = paisService.guardarPais(pais);
             httpStatus = HttpStatus.CREATED;
         } catch (DataAccessException exception) {
             getErrorMessageForResponse(exception);
@@ -57,11 +56,11 @@ public class EquipoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Response> actualizarEquipo(@RequestBody Equipos equipos, @PathVariable(value = "id") Long id) {
+    public ResponseEntity<Response> actualizarPais(@RequestBody Pais pais, @PathVariable(value = "id") Long id) {
 
         response.restart();
         try {
-            response.data = equiposService.actualizarEquipo(id, equipos);
+            response.data = paisService.actualizarPais(id, pais);
             httpStatus = HttpStatus.OK;
         } catch (DataAccessException exception) {
             getErrorMessageForResponse(exception);
@@ -76,7 +75,7 @@ public class EquipoController {
     public ResponseEntity<Response> eliminarPorId(@PathVariable(value = "id") Long id) {
         response.restart();
         try {
-            response.data = equiposService.eliminarEquipo(id);
+            response.data = paisService.eliminarPais(id);
             if (response.data == null) {
                 response.message = "NO EXISTE";
                 httpStatus = HttpStatus.NOT_FOUND;
@@ -123,5 +122,4 @@ public class EquipoController {
         response.data = exception.getCause();
         httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
     }
-
 }

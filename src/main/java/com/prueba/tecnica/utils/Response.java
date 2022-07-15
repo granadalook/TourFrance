@@ -12,7 +12,6 @@ public class Response {
         data = null;
     }
 
-
     public void restart() {
         error = false;
         message = "";

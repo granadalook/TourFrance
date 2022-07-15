@@ -1,54 +1,63 @@
 package com.prueba.tecnica.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 
 import javax.persistence.*;
 import java.util.List;
 
+
 @AllArgsConstructor
 @Entity
-@Table(name = "equipos")
-public class Equipos {
+@Table(name = "paises")
+public class Pais {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
     private String nombre;
-    private String codigo;
-  // @JsonBackReference
-    @ManyToOne(
-            targetEntity = Pais.class,
-            fetch = FetchType.LAZY,
-            optional = false
-    )
-    @JoinColumn(name = "Id_paisEquipos")
-    private Pais paisEquipos;
-
-    // @JsonManagedReference
+    private String Siglas;
+    //@JsonManagedReference
     @OneToMany(
-            mappedBy = "equipos",
+            mappedBy = "paisCiclistas",
             targetEntity = Ciclistas.class,
             fetch = FetchType.EAGER,
             cascade = CascadeType.REMOVE
     )
+  //  @Fetch(value = FetchMode.SUBSELECT)
     private List<Ciclistas> ciclistas;
 
-    public Equipos() {
+
+    //@JsonManagedReference
+    @OneToMany(
+            mappedBy = "paisEquipos",
+            targetEntity = Equipos.class,
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.REMOVE
+    )
+
+  // @Fetch(value = FetchMode.SUBSELECT)
+    private List<Equipos> equipos;
+
+    public Pais() {
     }
 
-    public Pais getPaisEquipos() {
-        return paisEquipos;
+    public List<Equipos> getEquipos() {
+        return equipos;
     }
 
-    public void setPaisEquipos(Pais paisEquipos) {
-        this.paisEquipos = paisEquipos;
+    public void setEquipos(List<Equipos> equipos) {
+        this.equipos = equipos;
     }
 
     public List<Ciclistas> getCiclistas() {
         return ciclistas;
     }
+
     public void setCiclistas(List<Ciclistas> ciclistas) {
         this.ciclistas = ciclistas;
     }
@@ -69,13 +78,11 @@ public class Equipos {
         this.nombre = nombre;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getSiglas() {
+        return Siglas;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setSiglas(String siglas) {
+        Siglas = siglas;
     }
-
-
 }
